@@ -1,0 +1,67 @@
+---
+title: "Importing data from web"
+author: "Huruy Belay"
+date: "June 28, 2017"
+output: html_document
+---
+
+Here we will see importing data from web in different data formats.
+
+First we have to load the library that is appropriate for our data. As our data is csv file, we can use the readr package to download the file.
+
+```{r}
+library(readr)
+```
+
+We can import the our data from the web.
+
+```{r}
+url <- "http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/swimming_pools.csv"
+pools <- read_csv(url)
+```
+
+We can import using the file using read.csv
+
+```{r}
+pools <- read.csv(url)
+```
+
+If our data file format is excel file, the above step will not work. 
+we can use the download.file method.
+
+```{r}
+url_xls <- "http://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/latitude.xls"
+download.file(url_xls, "local_latitude.xls")
+```
+
+This step will not give us any output however, we can import the downloaded file using readxl.
+
+```{r}
+library(readxl)
+excel_readxl <- read_excel("local_latitude.xls")
+```
+
+If the above method of importing data using the readxl package will not work, we can use read.xls from the gdata package. In this gdata package, we should have to use the perl package.
+
+
+*  **What about if the file is secure?**
+we can use the following steps whether the downloading file is secure or not:
+
+# https URL to the wine RData file.
+
+```{r}
+url_rdata <- "https://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/wine.RData"
+download.file(url_rdata, "wine_local.RData")
+```
+
+The next step is to load the file to R.
+
+```{r}
+load("wine_local.RData")
+```
+
+Lets ckeck using summary
+
+```{r}
+summary(wine)
+```
